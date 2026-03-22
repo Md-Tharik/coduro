@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0c18" />
+  <title>Coduro — Learn by Doing</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ── SPLASH ─────────────────────────────── -->
+<div id="splash" class="splash">
+  <div class="splash-bg">
+    <div class="splash-blob splash-blob-1"></div>
+    <div class="splash-blob splash-blob-2"></div>
+    <div class="splash-blob splash-blob-3"></div>
+  </div>
+  <div class="splash-eyebrow">Learn by doing, not by reading</div>
+  <div class="splash-logo">Cod<span>uro</span></div>
+  <p class="splash-tagline">Tiny coding challenges that actually teach you HTML, CSS &amp; JavaScript.</p>
+  <button class="splash-cta" id="btn-start">Start Learning →</button>
+  
+   <a href="https://form.svhrt.com/69bfce9f93491404a4edac3a"> 
+   <button class="splash-secondary">💬 Feedback</button>
+   </a>
+    
+  <div class="splash-stats">
+    <div style="text-align:center"><div class="splash-stat-num">20</div><div class="splash-stat-lbl">Levels</div></div>
+    <div style="text-align:center"><div class="splash-stat-num">5</div><div class="splash-stat-lbl">Topics</div></div>
+    <div style="text-align:center"><div class="splash-stat-num">0</div><div class="splash-stat-lbl">Fluff</div></div>
+  </div>
+</div>
+
+<!-- ── APP ────────────────────────────────── -->
+<div id="app" class="app" style="display:none">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-logo">Cod<span>uro</span></div>
+    <div class="topbar-badge" id="lv-badge">Lv 1/20</div>
+    <div class="topbar-gap"></div>
+    <div class="topbar-pill xp" id="xp-pill">⚡ 0</div>
+    <div class="topbar-pill streak" id="streak-pill">🔥 0</div>
+    <button class="topbar-icon-btn" id="btn-theme" title="Toggle theme">☀️</button>
+  </div>
+
+  <!-- GOALBAR -->
+  <div class="goalbar">
+    <div class="goalbar-tag">🎯</div>
+    <div class="goalbar-text" id="goal-text"></div>
+    <div class="goalbar-right">
+      <div class="stars">
+        <div class="star" id="star1">★</div>
+        <div class="star" id="star2">★</div>
+        <div class="star" id="star3">★</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:5%"></div></div>
+        <div class="prog-label" id="prog-label">1/20</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN SPLIT -->
+  <div class="main-split">
+
+    <!-- PREVIEW -->
+    <div class="preview-pane">
+      <div class="preview-label">👁 Preview</div>
+      <iframe id="preview-frame" class="preview-frame" sandbox="allow-scripts allow-same-origin" title="preview"></iframe>
+
+      <div class="success-overlay" id="success-overlay" style="display:none">
+        <div class="success-emoji">🎉</div>
+        <div class="success-title">Level Clear!</div>
+        <div class="success-xp" id="success-xp">+30 XP</div>
+      </div>
+    </div>
+
+    <!-- EDITOR PANE -->
+    <div class="editor-pane">
+
+      <!-- DROPDOWN CONTROLS (shown for dropdown levels) -->
+      <div class="controls-pane" id="controls-pane" style="display:none">
+        <div id="controls-inner"></div>
+      </div>
+
+      <!-- TOOLBAR -->
+      <div class="editor-toolbar">
+        <div class="editor-file-label" id="file-label">📝 code.html</div>
+        <button class="btn btn-map"  id="btn-map">🗺️ Map</button>
+        <button class="btn btn-hint" id="btn-hint">💡 Hint</button>
+        <button class="btn btn-run"  id="btn-run">▶ Run</button>
+        <button class="btn btn-next" id="btn-next">Next →</button>
+      </div>
+
+      <!-- HINT PANEL (above editor so it never covers it) -->
+      <div class="hint-panel" id="hint-panel" style="display:none">
+        <div class="panel-head-row">
+          <div class="panel-head" id="hint-head">💡 Hint 1/3</div>
+          <button class="panel-close" id="hint-close" title="Close">✕</button>
+        </div>
+        <div class="panel-body" id="hint-body"></div>
+        <div class="hint-dots">
+          <div class="hdot" id="hdot0"></div>
+          <div class="hdot" id="hdot1"></div>
+          <div class="hdot" id="hdot2"></div>
+        </div>
+      </div>
+
+      <!-- FEEDBACK PANEL (above editor so it never covers it) -->
+      <div class="feedback-panel" id="feedback-panel" style="display:none">
+        <div class="panel-head-row">
+          <span id="feedback-text"></span>
+          <button class="panel-close feedback-close" id="feedback-close" title="Close">✕</button>
+        </div>
+      </div>
+
+      <!-- CODE EDITOR -->
+      <div class="code-editor-wrap">
+        <div class="line-nums" id="line-nums">1</div>
+        <textarea
+          id="code-editor"
+          class="code-textarea"
+          spellcheck="false"
+          autocorrect="off"
+          autocapitalize="off"
+        ></textarea>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── LEVEL MAP MODAL ─────────────────────── -->
+<div class="modal-bg" id="modal-bg" style="display:none">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-title">🗺️ <span>Quest Map</span></div>
+    <div id="map-content"></div>
+  </div>
+</div>
+
+<!-- ── COMPLETION SCREEN ───────────────────────── -->
+<div class="completion-bg" id="completion-bg" style="display:none">
+  <div class="completion-card">
+    <div class="completion-trophy">🏆</div>
+    <div class="completion-title">You Did It!</div>
+    <p class="completion-sub">You've completed all 20 levels of Coduro. That's a real achievement.</p>
+    <div class="completion-stats">
+      <div class="completion-stat" id="completion-xp">0 XP earned</div>
+      <div class="completion-stat" id="completion-streak">🔥 0 day streak</div>
+    </div>
+    <div class="completion-next-head">What to do next:</div>
+    <div class="completion-links">
+      <a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" class="completion-link">📖 MDN Web Docs — free deep-dive</a>
+      <a href="https://www.frontendmentor.io" target="_blank" class="completion-link">🎨 Frontend Mentor — real projects</a>
+      <a href="https://javascript.info" target="_blank" class="completion-link">⚡ javascript.info — JS mastery</a>
+      <a href="https://css-tricks.com" target="_blank" class="completion-link">🎯 CSS-Tricks — layout & styling</a>
+    </div>
+    <button class="completion-btn" id="btn-completion-close">↩ Back to levels</button>
+  </div>
+</div>
+
+<!-- ── TOAST ──────────────────────────────── -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
